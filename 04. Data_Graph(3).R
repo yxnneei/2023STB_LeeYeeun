@@ -16,7 +16,7 @@ barplot(table(X2023_STB_survey $`residential area`), xlab = "Number of people", 
 
 #Gender와 Grade 2개의 인자를 가지고 막대그래프 작성
 entry <- table(X2023_STB_survey $Gender, X2023_STB_survey $Grade)
-barplot(entry, legend = TRUE, xlab = "Grade", ylab = "Number of people by gender", col = rainbow(12))
+barplot(entry, legend = TRUE, xlab = "Grade", ylab = "Number of people by gender", ylim = c(0,25), main = "2023 STB survey Gender and Grade ratio", col = rainbow(12))
 
 #Grade 1개의 인자를 가지고 파이차트 작성
 pie(table(X2023_STB_survey $Grade), main = "2023 STB survey grade ratio", col = rainbow(12))
@@ -31,4 +31,4 @@ boxplot(X2023_STB_survey2$'2Age', X2023_STB_survey2$'3Age', X2023_STB_survey2$'4
 summary(X2023_STB_survey2)
 
 #Grade를 X값으로 Age를 Y값으로 하는 산점도
-plot(x=X2023_STB_survey$Grade, y=X2023_STB_survey$Age, xlab = "Grade", ylab = "Age")
+plot(x=X2023_STB_survey$Grade, y=X2023_STB_survey$Age, main = "Age comparison by grade plot", xlab = "Grade", ylab = "Age")
