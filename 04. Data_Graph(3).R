@@ -18,8 +18,8 @@ barplot(table(X2023_STB_survey $`residential area`), xlab = "Number of people", 
 entry <- table(X2023_STB_survey $Gender, X2023_STB_survey $Grade)
 barplot(entry, legend = TRUE, xlab = "Grade", ylab = "Number of people by gender", col = rainbow(12))
 
-#Gender 1개의 인자를 가지고 파이차트 작성
-pie(table(X2023_STB_survey $Gender), main = "2023 STB survey gender ratio", col = rainbow(12))
+#Grade 1개의 인자를 가지고 파이차트 작성
+pie(table(X2023_STB_survey $Grade), main = "2023 STB survey grade ratio", col = rainbow(12))
 
 #Age 인자를 가지고 히스토그램 작성
 hist(X2023_STB_survey $Age, main = "AGE Histogram", col = terrain.colors(12))
