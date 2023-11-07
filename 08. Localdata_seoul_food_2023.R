@@ -105,6 +105,7 @@ foodshop %>%
   summarise(n=n()) %>% #범주빈도계산
   mutate(total=sum(n),pct=round(n/total*100,1)) #범주별비율계산
 #6.주요 업종별 영업과 폐업 비율
+#영업
 foodshop %>%
   filter(!is.na(open_date)&!is.na(type)&!is.na(district)) %>% #결측치제외
   filter(type%in%c("기타","경양식","분식","일식","중국식","호프/통닭"))%>%
@@ -112,6 +113,15 @@ foodshop %>%
   summarise(n=n()) %>% #범주빈도계산
   mutate(total=sum(n),pct=round(n/total*100,1))%>% #범주별비율계산
   filter(status=="영업") %>% #영업만 추출
+  arrange(desc(n))
+#폐업
+foodshop %>%
+  filter(!is.na(open_date)&!is.na(type)&!is.na(district)) %>% #결측치제외
+  filter(type%in%c("기타","경양식","분식","일식","중국식","호프/통닭"))%>%
+  group_by(type,status) %>%#교차차 분류
+  summarise(n=n()) %>% #범주빈도계산
+  mutate(total=sum(n),pct=round(n/total*100,1))%>% #범주별비율계산
+  filter(status=="폐업") %>% #폐업만 추출
   arrange(desc(n))
 #7.개업이 많았던 연도
 foodshop %>%
@@ -147,7 +157,7 @@ close_trend <- foodshop %>%
   summarise(close_n=n())
 #open_trend 구조
 str(close_trend)
-#연도별 개업 음식점수 막대그래프
+#연도별 폐업 음식점수 막대그래프
 ggplot(data=close_trend,aes(x=close_year,y=close_n))+
   geom_col()+
   xlab("연도") + ylab("폐업수")
@@ -173,7 +183,7 @@ district_business<-foodshop %>%
 district_business %>%
   arrange(desc(n)) %>%
   head(5)
-#14,25개 구의 음식점수 막대그래프
+#14.25개 구의 음식점수 막대그래프
 ggplot(data = district_business, aes(x=reorder(district,n),y=n))+
   geom_col()+
   coord_flip()+#막대 90도회전
