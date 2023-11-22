@@ -84,6 +84,17 @@ mental%>%
   mutate(total=sum(n), #age변수의 빈도 총계
          pct=round(n/total*100,1)) #age변수의 범주별 비율
 
+#.연령대별로 남녀를 분류하여 삶의 만족도 평균 분석
+satisfaction_pct <- mental%>%
+  group_by(age, sex)%>%
+  summarise(n=n())%>% #age변수의 범주별 빈도 계산
+  mutate(total=sum(n), #age변수의 빈도 총계
+         pct=round(n/total*100,1)) #age변수의 범주별 비율
+
+satisfaction_pct %>%
+  arrange(desc(pct)) %>%
+  head(4)
+
 #.교차분석
 table(mental$sex, mental$age)
 round(prop.table(table(mental$sex, mental$age),1)*100,1)#교차백분율계산
